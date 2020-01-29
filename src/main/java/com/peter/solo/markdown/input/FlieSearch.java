@@ -10,5 +10,6 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class FlieSearch {
     public void search(String path) {
+        log.info(">>> yandong");
     }
 }

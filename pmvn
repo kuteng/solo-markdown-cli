@@ -1,0 +1,33 @@
+#!/bin/bash 
+setting="/Users/peter/.m2/settings.work.xml"
+action="work"
+
+
+if [[ "$#" == "0" ]];
+then
+    action="help"
+fi
+
+arg="$1"
+
+if [[ "$arg" == "-h" ]] || [[ "$arg" == "help" ]];
+then
+    action="help"
+elif [[ "$arg" == "-w" ]] || [[ "$arg" == "work" ]];
+then
+    setting="$HOME/.m2/settings.xml"
+elif [[ "$arg" == "-l" ]] || [[ "$arg" == "local" ]];
+then
+    setting="$HOME/.m2/settings.local.xml"
+elif [[ "$arg" == "-a" ]] || [[ "$arg" == "aliyun" ]];
+then
+    setting="$HOME/.m2/settings.aliyun.xml"
+fi
+
+if [[ "$action" == "help" ]];
+then
+    echo "pmvn [-h|-w|-l|aliyun|local] compile"
+else
+    echo "mvn -s=$setting ${@:2}"
+    mvn -s=$setting ${@:2}
+fi
