@@ -11,6 +11,7 @@ public class MarkdownApplication {
 	public static void main(String[] args) throws Exception {
 		ConfigurableApplicationContext ctx = SpringApplication.run(MarkdownApplication.class, args);
 		FileMonitor fileMonitor = ctx.getBean(FileMonitor.class);
+		fileMonitor.init();
 		fileMonitor.start();
 	}
 }

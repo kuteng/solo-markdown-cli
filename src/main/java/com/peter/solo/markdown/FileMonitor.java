@@ -1,5 +1,7 @@
 package com.peter.solo.markdown;
 
+import com.alibaba.fastjson.JSONObject;
+import com.peter.solo.markdown.input.FileUpdate;
 import com.peter.solo.markdown.input.InputService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FilenameUtils;
@@ -19,17 +21,23 @@ import java.util.concurrent.atomic.AtomicInteger;
  * 监控文件系统
  */
 @Slf4j
+@Service
 public class FileMonitor {
     @Autowired
     private InputService inputService;
+    @Autowired
+    private FileUpdate fileUpdate;
+    @Value("${solo.blog.root}")
+    private String blogRoot;
+
     private FileAlterationMonitor monitor;
 
     private final AtomicInteger listenerCount = new AtomicInteger(0);
 
-    public FileMonitor(String blogRoot) {
+    public void init() {
         monitor = new FileAlterationMonitor();
         FileAlterationObserver observer = new FileAlterationObserver(blogRoot, new MarkdownFileFilter());
-        observer.addListener(new MarkdownAlterationListener(listenerCount));
+        observer.addListener(new MarkdownAlterationListener(inputService, fileUpdate, listenerCount));
         monitor.addObserver(observer);
     }
 
@@ -67,8 +75,12 @@ public class FileMonitor {
     @Slf4j
     public static class MarkdownAlterationListener implements FileAlterationListener {
         private AtomicInteger listenerCount;
+        private InputService inputService;
+        private FileUpdate fileUpdate;
 
-        public MarkdownAlterationListener(final AtomicInteger listenerCount) {
+        public MarkdownAlterationListener(InputService inputService, FileUpdate fileUpdate, final AtomicInteger listenerCount) {
+            this.inputService = inputService;
+            this.fileUpdate = fileUpdate;
             this.listenerCount = listenerCount;
         }
 
@@ -109,6 +121,7 @@ public class FileMonitor {
         public void onFileCreate(File file) {
             try {
                 log.info(String.format("file: %s is created", file.getCanonicalPath()));
+                upfile(file);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -118,6 +131,7 @@ public class FileMonitor {
         public void onFileChange(File file) {
             try {
                 log.info(String.format("file: %s is changed", file.getCanonicalPath()));
+                upfile(file);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -127,6 +141,7 @@ public class FileMonitor {
         public void onFileDelete(File file) {
             try {
                 log.info(String.format("file: %s is deleted", file.getCanonicalPath()));
+                // TODO by yandong: 文件时应该做更细节的事情。
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -137,6 +152,25 @@ public class FileMonitor {
         public void onStop(FileAlterationObserver observer) {
             listenerCount.decrementAndGet();
             log.debug(String.format("listener stop"));
+        }
+
+        private void upfile(File file) throws IOException {
+            JSONObject ret = inputService.updateFile(file);
+
+            if(null == ret) {
+                log.error("文件上传失败，返回结果为空。File: " + file.getCanonicalPath());
+                return;
+            }
+
+            if(0 != ret.getInteger("code")) {
+                log.error("文件上传失败：" + ret.getString("msg"));
+                return;
+            }
+
+            JSONObject retData = ret.getJSONObject("data");
+            String id = null == retData ? null : retData.getString("id");
+
+            fileUpdate.update(id, file);
         }
     }
 }
