@@ -1,6 +1,7 @@
 package com.peter.solo.markdown.input;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.monitor.FileAlterationObserver;
 import org.springframework.stereotype.Service;
 
 /**
@@ -10,6 +11,5 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class FlieSearch {
     public void search(String path) {
-        log.info(">>> yandong");
     }
 }
