@@ -11,7 +11,7 @@
 	<groupId>com.peter.solo</groupId>
 	<artifactId>markdown</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>markdown</name>
+	<name>solo-markdown-cli</name>
 	<description>Demo project for Spring Boot</description>
 
 	<properties>
