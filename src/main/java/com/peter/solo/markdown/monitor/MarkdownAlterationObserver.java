@@ -21,6 +21,7 @@ public class MarkdownAlterationObserver extends FileAlterationObserver {
 
     public MarkdownAlterationObserver(@Value("${solo.blog.root}") String directoryName) {
         super(directoryName, new MarkdownFileFilter());
+        log.info(">>>>>> init observer");
     }
 
     @Override
