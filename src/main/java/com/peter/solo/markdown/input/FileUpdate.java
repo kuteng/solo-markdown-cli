@@ -3,6 +3,7 @@ package com.peter.solo.markdown.input;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.monitor.FileAlterationObserver;
 import org.apache.http.impl.io.IdentityOutputStream;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.yaml.snakeyaml.Yaml;
 
@@ -16,8 +17,8 @@ import java.util.Map;
 /**
  * 文件搜索
  */
-@Service
 @Slf4j
+@Component
 public class FileUpdate {
     public void update(String id, File file) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), "utf-8"));

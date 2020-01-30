@@ -7,6 +7,8 @@ import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.monitor.FileAlterationListener;
 import org.apache.commons.io.monitor.FileAlterationObserver;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.IOException;
@@ -16,20 +18,15 @@ import java.util.concurrent.atomic.AtomicInteger;
  * 对文件进行监听。
  */
 @Slf4j
+@Component
 public class MarkdownAlterationListener implements FileAlterationListener {
-    private AtomicInteger listenerCount;
+    @Autowired
     private InputService inputService;
+    @Autowired
     private FileUpdate fileUpdate;
-
-    public MarkdownAlterationListener(InputService inputService, FileUpdate fileUpdate, final AtomicInteger listenerCount) {
-        this.inputService = inputService;
-        this.fileUpdate = fileUpdate;
-        this.listenerCount = listenerCount;
-    }
 
     @Override
     public void onStart(FileAlterationObserver observer) {
-        listenerCount.incrementAndGet();
         log.debug("listener start");
     }
 
@@ -93,8 +90,7 @@ public class MarkdownAlterationListener implements FileAlterationListener {
 
     @Override
     public void onStop(FileAlterationObserver observer) {
-        listenerCount.decrementAndGet();
-
+        // 重新初始化observer对象，免得刚刚update的对象又被input-blog.
         try {
             observer.initialize();
         }

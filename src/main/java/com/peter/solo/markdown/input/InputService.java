@@ -14,6 +14,7 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -24,9 +25,9 @@ import java.util.List;
 /**
  * 通过模拟HTTP请求，上传文件以更新博客内容。
  */
-@Service
 @Data
 @Slf4j
+@Component
 public class InputService {
     @Value("${solo.input.url}")
     private String inputUrl;

@@ -10,6 +10,7 @@ import org.apache.commons.io.monitor.FileAlterationMonitor;
 import org.apache.commons.io.monitor.FileAlterationObserver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -21,23 +22,19 @@ import java.util.concurrent.atomic.AtomicInteger;
  * 监控文件系统
  */
 @Slf4j
-@Service
+@Component
 public class FileMonitor {
     @Autowired
-    private InputService inputService;
+    private MarkdownAlterationListener listener;
     @Autowired
-    private FileUpdate fileUpdate;
-    @Value("${solo.blog.root}")
-    private String blogRoot;
+    private MarkdownAlterationObserver observer;
 
     private FileAlterationMonitor monitor;
 
-    private final AtomicInteger listenerCount = new AtomicInteger(0);
-
-    public void init() {
-        monitor = new FileAlterationMonitor();
-        MarkdownAlterationObserver observer = new MarkdownAlterationObserver(blogRoot);
-        observer.addListener(new MarkdownAlterationListener(inputService, fileUpdate, listenerCount));
+    public FileMonitor(@Value("${solo.blog.refresh.interval}") Integer interval) {
+        log.info(">>>>>> interval: " + interval + ", observer: " + observer);
+        monitor = new FileAlterationMonitor(interval);
+        observer.addListener(listener);
         monitor.addObserver(observer);
     }
 

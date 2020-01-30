@@ -1,25 +1,40 @@
 package com.peter.solo.markdown.monitor;
 
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.monitor.FileAlterationObserver;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-import java.io.FileFilter;
-
-@Service
 @Slf4j
+@Getter
+@Setter
+@Component
 public class MarkdownAlterationObserver extends FileAlterationObserver {
+    /**
+     * 是否正在checking。
+     */
+    private boolean checking = false;
+
     public MarkdownAlterationObserver(@Value("${solo.blog.root}") String directoryName) {
         super(directoryName, new MarkdownFileFilter());
     }
 
     @Override
     public void checkAndNotify() {
-        super.checkAndNotify();
-    }
+        if(checking) {
+            return;
+        }
 
-    public void test() {
-        log.info(">>> observer.test()");
+        try {
+            this.checking = true;
+            super.checkAndNotify();
+        }
+        finally {
+            this.checking = false;
+        }
     }
 }
