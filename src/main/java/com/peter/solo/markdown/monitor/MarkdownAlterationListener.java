@@ -3,7 +3,6 @@ package com.peter.solo.markdown.monitor;
 import com.alibaba.fastjson.JSONObject;
 import com.peter.solo.markdown.input.FileUpdate;
 import com.peter.solo.markdown.input.InputService;
-import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.monitor.FileAlterationListener;
 import org.apache.commons.io.monitor.FileAlterationObserver;
@@ -12,7 +11,6 @@ import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * 对文件进行监听。

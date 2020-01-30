@@ -1,13 +1,11 @@
 package com.peter.solo.markdown.monitor;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.monitor.FileAlterationObserver;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 @Slf4j
 @Getter
@@ -21,7 +19,6 @@ public class MarkdownAlterationObserver extends FileAlterationObserver {
 
     public MarkdownAlterationObserver(@Value("${solo.blog.root}") String directoryName) {
         super(directoryName, new MarkdownFileFilter());
-        log.info(">>>>>> init observer");
     }
 
     @Override

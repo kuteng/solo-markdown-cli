@@ -1,17 +1,10 @@
 package com.peter.solo.markdown.input;
 
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.io.monitor.FileAlterationObserver;
-import org.apache.http.impl.io.IdentityOutputStream;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.*;
-import java.nio.CharBuffer;
-import java.nio.charset.Charset;
-import java.nio.charset.CharsetDecoder;
-import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
