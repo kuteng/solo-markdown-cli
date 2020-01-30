@@ -17,6 +17,7 @@
 	<properties>
 		<java.version>1.8</java.version>
 		<spring-boot-admin.version>2.2.1</spring-boot-admin.version>
+		<commons.version>2.6</commons.version>
 	</properties>
 
 	<dependencies>
@@ -65,13 +66,6 @@
 			<optional>true</optional>
 		</dependency>
 
-		<!-- 文件操作 -->
-		<dependency>
-			<groupId>commons-io</groupId>
-			<artifactId>commons-io</artifactId>
-			<version>2.6</version>
-		</dependency>
-
 		<!-- 模拟HTTP请求 -->
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
@@ -107,6 +101,19 @@
 			<groupId>org.yaml</groupId>
 			<artifactId>snakeyaml</artifactId>
 			<version>${snakeyaml.version}</version>
+		</dependency>
+
+		<!-- 基本组件 -->
+		<dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+			<version>${commons.version}</version>
+		</dependency>
+		<!-- 文件操作 -->
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>${commons.version}</version>
 		</dependency>
 
 		<!-- test -->

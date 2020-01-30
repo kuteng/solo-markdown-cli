@@ -1,10 +1,14 @@
 package com.peter.solo.markdown.input;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang.time.DateFormatUtils;
+import org.apache.commons.lang.time.DateUtils;
 import org.springframework.stereotype.Component;
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.*;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.Map;
 
 /**
@@ -63,6 +67,10 @@ public class FileUpdate {
 
             log.info("开始更新文章ID: " + id + ", path: " + file.getCanonicalPath());
             obj.put("id", id);
+
+            if(obj.containsKey("date") && null != obj.get("date")) {
+                obj.put("date", DateFormatUtils.format((Date) obj.get("date"), "yyyy-MM-dd HH:mm:ss"));
+            }
 
             meta = yaml.dumpAsMap(obj);
 
