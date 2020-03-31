@@ -69,7 +69,16 @@ public class FileUpdate {
             obj.put("id", id);
 
             if(obj.containsKey("date") && null != obj.get("date")) {
-                obj.put("date", DateFormatUtils.format((Date) obj.get("date"), "yyyy-MM-dd HH:mm:ss"));
+                if (obj.get("date") instanceof Date) {
+                    obj.put("date", DateFormatUtils.format((Date) obj.get("date"), "yyyy-MM-dd HH:mm:ss"));
+                }
+                else if(obj.get("date") instanceof String) {
+                    log.info("the date is String: " + obj.get("date"));
+                    obj.put("date", (String) obj.get("date"));
+                }
+                else {
+                    log.info("the date type is undefined: " + obj.get("date").toString());
+                }
             }
 
             meta = yaml.dumpAsMap(obj);

@@ -4,6 +4,10 @@
 ## 脚本备忘
 - 日常调试： `./pmvn -l spring-boot:run` 。
 
+## 用法
+- 触发文章更新：`GET http://localhost:8810/input`
+- 全部文章更新: `GET http://localhost:8810/input-all`
+
 ## TODO
 - Monitor中增加逻辑： **如果上一个监控没有执行完，当前监控不触发** 。
   - 或者，当同时运行的监听到达一定数量，就不触发新监听了。
