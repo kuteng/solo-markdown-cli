@@ -1,0 +1,1 @@
+./pmvn -l spring-boot:run
