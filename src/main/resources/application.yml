@@ -28,5 +28,5 @@ solo:
     # 监控的目录
     root: /Users/yandong/Blogs/solo
     refresh:
-      # 刷新时间10分钟
-      interval: 600000
+      # 刷新时间30分钟
+      interval: 1800000
