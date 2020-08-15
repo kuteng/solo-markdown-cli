@@ -1,0 +1,32 @@
+server:
+  port: 8800
+
+management:
+  endpoint:
+    shutdown:
+      enabled: false
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+    enabled-by-default: true
+  server:
+    address: 127.0.0.1
+    port: 8810
+
+logging:
+  level:
+    com:
+      peter:
+        solo: debug
+
+solo:
+  input:
+    # 上传的URI
+    url: http://blog.peteryan.top:8080/plugin/markdown/input
+  blog:
+    # 监控的目录
+    root: /Users/yandong/Blogs/solo
+    refresh:
+      # 刷新时间10分钟
+      interval: 600000

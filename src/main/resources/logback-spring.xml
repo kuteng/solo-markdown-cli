@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 一般根节点不需要写属性了，使用默认的就好 -->
+<configuration>
+    <!--<contextName>demo</contextName>-->
+
+    <!-- 引入application的配置 -->
+    <property resource="application.yml" />
+    <!-- 引入logback的配置 -->
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+    <include resource="org/springframework/boot/logging/logback/console-appender.xml" />
+
+    <!-- 该变量代表日志文件存放的目录名 -->
+    <property name="log.dir" value="logs"/>
+    <!-- 该变量代表日志文件名 -->
+    <property name="log.filename" value="soloclient"/>
+
+    <!--定义一个将日志输出到控制台的appender，名称为STDOUT -->
+    <!--<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">-->
+    <!--    <encoder>-->
+    <!--        <pattern>%level %date %logger{60}:%line [%thread] %msg%n</pattern>-->
+    <!--    </encoder>-->
+    <!--</appender>-->
+
+    <!--定义一个将日志输出到文件的appender，按时间和大小滚动 -->
+    <appender name="ROL-SIZE-FILE-LOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${log.dir}/${log.filename}.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <!-- 单个文件的最大内存 -->
+            <maxFileSize>100MB</maxFileSize>
+            <!-- 只保留近七天的日志 -->
+            <maxHistory>7</maxHistory>
+            <!-- 用来指定日志文件的上限大小，那么到了这个值，就会删除旧的日志 -->
+            <totalSizeCap>1GB</totalSizeCap>
+        </rollingPolicy>
+
+        <encoder>
+            <pattern>%-5level %date [%-20thread] %logger{60}:%line %msg%n</pattern>
+        </encoder>
+    </appender>
+
+
+    <!-- 指定com.demo包下的日志打印级别为INFO，但是由于没有引用appender，所以该logger不会打印日志信息，日志信息向上传递 -->
+    <!--<logger name="com.demo" level="INFO"/>-->
+
+    <!-- 指定最基础的日志输出级别为DEBUG，并且绑定了名为STDOUT的appender，表示将日志信息输出到控制台 -->
+    <root level="info">
+        <!-- 开启console的日志 -->
+        <appender-ref ref="CONSOLE" />
+        <!--<appender-ref ref="STDOUT" />-->
+        <appender-ref ref="ROL-SIZE-FILE-LOG" />
+    </root>
+</configuration>

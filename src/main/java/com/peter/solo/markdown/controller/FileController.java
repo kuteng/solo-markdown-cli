@@ -37,6 +37,7 @@ public class FileController {
             return new Result(Result.STATUS_FAILURE, msg);
         }
 
+        log.debug(">>>> 测试 <<<<<");
         observer.checkAndNotify();
         return new Result(Result.STATUS_SUCESS, "最新文件已上传成功。");
     }

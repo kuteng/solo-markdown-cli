@@ -1,25 +1,25 @@
 #applicationArguments:
 #  - --spring.profiles.active=$profile
 
-jvmOptions:
-  - -Xms2048m
-  - -Xmx3096m
-  - -Xmn1024m
-  - -XX:SurvivorRatio=15
-  - -XX:+UseParNewGC
-  - -XX:ParallelGCThreads=4
-  - -XX:MaxTenuringThreshold=15
-  - -XX:+UseConcMarkSweepGC
-  - -XX:+UseCMSInitiatingOccupancyOnly
-  - -XX:+ScavengeBeforeFullGC
-  - -XX:+UseCMSCompactAtFullCollection
-  - -XX:+CMSParallelRemarkEnabled
-  - -XX:CMSFullGCsBeforeCompaction=9
-  - -XX:CMSInitiatingOccupancyFraction=60
-  - -XX:+CMSClassUnloadingEnabled
-  - -XX:SoftRefLRUPolicyMSPerMB=0
-  - -XX:-ReduceInitialCardMarks
-  - -XX:CMSInitiatingPermOccupancyFraction=70
-  - -XX:-OmitStackTraceInFastThrow
-  - -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=8000
+#jvmOptions:
+#  - -Xms512m
+#  - -Xmx1024m
+#  - -Xmn512m
+#  - -XX:SurvivorRatio=15
+#  - -XX:+UseParNewGC
+#  - -XX:ParallelGCThreads=4
+#  - -XX:MaxTenuringThreshold=15
+#  - -XX:+UseConcMarkSweepGC
+#  - -XX:+UseCMSInitiatingOccupancyOnly
+#  - -XX:+ScavengeBeforeFullGC
+#  - -XX:+UseCMSCompactAtFullCollection
+#  - -XX:+CMSParallelRemarkEnabled
+#  - -XX:CMSFullGCsBeforeCompaction=9
+#  - -XX:CMSInitiatingOccupancyFraction=60
+#  - -XX:+CMSClassUnloadingEnabled
+#  - -XX:SoftRefLRUPolicyMSPerMB=0
+#  - -XX:-ReduceInitialCardMarks
+#  - -XX:CMSInitiatingPermOccupancyFraction=70
+#  - -XX:-OmitStackTraceInFastThrow
+#  - -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=8000
 
