@@ -24,8 +24,11 @@ public class MarkdownAlterationObserver extends FileAlterationObserver {
     @Override
     public void checkAndNotify() {
         if(checking) {
+            log.warn("上次的检查未完成");
             return;
         }
+
+        log.info("触发一次检查");
 
         try {
             this.checking = true;

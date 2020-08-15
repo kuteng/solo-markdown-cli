@@ -1,6 +1,9 @@
 # solo-markdown-cli
 上传markdown文档的客户端
 
+## 备忘
+- java版本 1.8
+
 ## 脚本备忘
 - 日常调试： `./pmvn -l spring-boot:run` 。
 
