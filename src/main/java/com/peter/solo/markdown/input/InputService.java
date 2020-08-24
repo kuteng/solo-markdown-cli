@@ -52,10 +52,8 @@ public class InputService {
         HttpEntity httpEntity = multipartEntityBuilder.build();
         httpPost.setEntity(httpEntity);
         CloseableHttpResponse response1 = httpclient.execute(httpPost);
-        System.out.println(">>> start");
 
         try {
-            System.out.println(response1.getStatusLine());
             HttpEntity entity1 = response1.getEntity();
             // do something useful with the response body
             // and ensure it is fully consumed
@@ -80,16 +78,13 @@ public class InputService {
         nvps.add(new BasicNameValuePair("password", "secret"));
         httpPost.setEntity(new UrlEncodedFormEntity(nvps));
         CloseableHttpResponse response1 = httpclient.execute(httpPost);
-        System.out.println(">>> start");
 
         try {
-            System.out.println(response1.getStatusLine());
             HttpEntity entity1 = response1.getEntity();
             // do something useful with the response body
             // and ensure it is fully consumed
             // EntityUtils.consume(entity1);
             String content = EntityUtils.toString(entity1, "utf-8");
-            System.out.println(">>> " + content);
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -100,7 +95,6 @@ public class InputService {
     }
 
     public static void main(String[] args) {
-        System.out.println(">>> main");
         InputService inputService = new InputService();
         inputService.setInputUrl("http://localhost:8080/plugin/markdown/input");
         File file = new File("/Users/yandong/Blogs/solo/note1.md");
