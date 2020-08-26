@@ -14,6 +14,9 @@ import org.springframework.stereotype.Component;
 public class FileMonitor {
     private FileAlterationMonitor monitor;
 
+    @Value("${solo.debug.monitor.enable}")
+    private boolean monitorEnable;
+
     public FileMonitor(@Value("${solo.blog.refresh.interval}") Integer interval,
                        @Autowired MarkdownAlterationObserver observer, @Autowired MarkdownAlterationListener listener) {
         monitor = new FileAlterationMonitor(interval);
@@ -22,11 +25,15 @@ public class FileMonitor {
     }
 
     public void start() throws Exception {
-        monitor.start();
+        if(monitorEnable) {
+            monitor.start();
+        }
     }
 
     public void stop() throws Exception {
-        monitor.stop();
+        if(monitorEnable) {
+            monitor.stop();
+        }
     }
 
 }

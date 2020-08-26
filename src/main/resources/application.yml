@@ -21,6 +21,10 @@ logging:
         solo: debug
 
 solo:
+  debug:
+    monitor:
+      # 是否开启文件监控
+      enable: true
   input:
     # 上传的URI
     url: http://blog.peteryan.top:8080/plugin/markdown/input
@@ -30,3 +34,20 @@ solo:
     refresh:
       # 刷新时间30分钟
       interval: 1800000
+
+
+spring:
+  datasource:
+    # 根据schema.sql建表(DDL scripts)，根据data.sql插入数据(DML scripts)。
+    initialization-mode: always
+    # url: jdbc:h2:mem:testdb
+    url: jdbc:h2:file:~/.var/h2/testdb
+    driverClassName: org.h2.Driver
+    username: sa
+    password: password
+  jpa:
+    hibernate:
+      # none, validate, update, create, create-drop
+      ddl-auto: none
+    generate-ddl: false
+    database-platform: org.hibernate.dialect.H2Dialect

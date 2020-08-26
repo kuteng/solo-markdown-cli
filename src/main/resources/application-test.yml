@@ -1,0 +1,24 @@
+server:
+  port: 8801
+
+management:
+  server:
+    port: 8811
+
+solo:
+  debug:
+    monitor:
+      enable: false
+
+spring:
+#  datasource:
+#    initialize: true
+  h2:
+    console:
+      # 开启该选项后：http://localhost:8801/h2-console
+      enabled: true
+      settings:
+        # 允许远程访问。
+        web-allow-others: false
+        # 禁止网络追踪
+        trace: false

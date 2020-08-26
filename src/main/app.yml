@@ -1,5 +1,5 @@
-#applicationArguments:
-#  - --spring.profiles.active=$profile
+applicationArguments:
+  - --spring.profiles.active=$profile
 
 #jvmOptions:
 #  - -Xms512m
