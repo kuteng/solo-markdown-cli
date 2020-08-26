@@ -2,6 +2,10 @@ spring:
   datasource:
     # 根据schema.sql建表(DDL scripts)，根据data.sql插入数据(DML scripts)。
     initialization-mode: always
+    # 默认为 resources/schema.sql
+    schema: classpath:db/schema-derby.sql
+    # 默认为 resources/data.sql
+    data: classpath:db/data-derby.sql
     # url: jdbc:h2:mem:testdb
     url: jdbc:h2:file:~/.var/h2/testdb
     driverClassName: org.h2.Driver
