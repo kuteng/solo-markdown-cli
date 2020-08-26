@@ -3,6 +3,7 @@
 
 ## 备忘
 - java版本 1.8
+- 如果是新环境，需要将 `src/main/java/resource/applicaton.yml` 中的配置 `spring.datasource.initialization-mode` 改为 `always` 以便创建数据库。如果已有数据库，则将该配置改为 `never` 。
 
 ## 脚本备忘
 - 日常调试： `./pmvn -l spring-boot:run` 。

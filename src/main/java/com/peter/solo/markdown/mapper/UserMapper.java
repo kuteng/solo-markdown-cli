@@ -18,6 +18,6 @@ public interface UserMapper {
             "(#{accountId},#{name},#{token})")
     void  insert(User user);
 
-    @Select("select id, account_id, name, token from myuser")
+    @Select("select id, account_id as accountId, name, token from myuser")
     List<User> findAll();
 }

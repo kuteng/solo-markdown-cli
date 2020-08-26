@@ -13,9 +13,3 @@ spring:
     # driver-class-name: org.apache.derby.jdbc.EmbeddedDriver
     username: sa
     password: password
-  jpa:
-    hibernate:
-      # none, validate, update, create, create-drop
-      ddl-auto: none
-    generate-ddl: false
-    database-platform: org.hibernate.dialect.DerbyTenSevenDialect

@@ -41,19 +41,10 @@ spring:
     # 此为开关，是否屏蔽建表语句。always, embedded, never
     # 根据schema.sql建表(DDL scripts)，根据data.sql插入数据(DML scripts)。
     initialization-mode: never
-    # 默认为 resources/schema.sql
     schema: classpath:db/schema-derby.sql
-    # 默认为 resources/data.sql
     data: classpath:db/data-derby.sql
-    # url: jdbc:derby:~/.var/derby/testdb;create=true;
     url: jdbc:derby:/Users/yandong/.var/derby/testdb;create=true;
     driverClassName: org.apache.derby.jdbc.EmbeddedDriver
     # driver-class-name: org.apache.derby.jdbc.EmbeddedDriver
     username: sa
     password: password
-  jpa:
-    hibernate:
-      # none, validate, update, create, create-drop
-      ddl-auto: none
-    generate-ddl: false
-    database-platform: org.hibernate.dialect.DerbyTenSevenDialect
