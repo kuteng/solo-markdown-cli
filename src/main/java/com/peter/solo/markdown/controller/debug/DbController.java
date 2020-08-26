@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 /**
  * @Description TODO
  * @Author yandong.great
@@ -25,5 +27,10 @@ public class DbController {
         user.setToken("siovaeiufu");
         userMapper.insert(user);
         return "OK";
+    }
+
+    @RequestMapping("/find/all")
+    public List<User> findAll() {
+        return userMapper.findAll();
     }
 }
