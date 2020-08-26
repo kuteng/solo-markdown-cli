@@ -1,50 +1,12 @@
-server:
-  port: 8800
-
-management:
-  endpoint:
-    shutdown:
-      enabled: false
-  endpoints:
-    web:
-      exposure:
-        include: "*"
-    enabled-by-default: true
-  server:
-    address: 127.0.0.1
-    port: 8810
-
-logging:
-  level:
-    com:
-      peter:
-        solo: debug
-
-solo:
-  debug:
-    monitor:
-      # 是否开启文件监控
-      enable: true
-  input:
-    # 上传的URI
-    url: http://blog.peteryan.top:8080/plugin/markdown/input
-  blog:
-    # 监控的目录
-    root: /Users/yandong/Blogs/solo
-    refresh:
-      # 刷新时间30分钟
-      interval: 1800000
-
-
 spring:
   datasource:
     # 此为开关，是否屏蔽建表语句。always, embedded, never
     # 根据schema.sql建表(DDL scripts)，根据data.sql插入数据(DML scripts)。
     initialization-mode: never
     # 默认为 resources/schema.sql
-    schema: classpath:schema-derby.sql
+    schema: classpath:db/schema-derby.sql
     # 默认为 resources/data.sql
-    data: classpath:data-derby.sql
+    data: classpath:db/data-derby.sql
     # url: jdbc:derby:~/.var/derby/testdb;create=true;
     url: jdbc:derby:/Users/yandong/.var/derby/testdb;create=true;
     driverClassName: org.apache.derby.jdbc.EmbeddedDriver

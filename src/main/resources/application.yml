@@ -42,9 +42,9 @@ spring:
     # 根据schema.sql建表(DDL scripts)，根据data.sql插入数据(DML scripts)。
     initialization-mode: never
     # 默认为 resources/schema.sql
-    schema: classpath:schema-derby.sql
+    schema: classpath:db/schema-derby.sql
     # 默认为 resources/data.sql
-    data: classpath:data-derby.sql
+    data: classpath:db/data-derby.sql
     # url: jdbc:derby:~/.var/derby/testdb;create=true;
     url: jdbc:derby:/Users/yandong/.var/derby/testdb;create=true;
     driverClassName: org.apache.derby.jdbc.EmbeddedDriver
