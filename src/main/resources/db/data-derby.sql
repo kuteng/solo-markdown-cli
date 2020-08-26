@@ -1,1 +1,1 @@
-delete from MYUSER where ID = -1;
+delete from persons where id = -1;

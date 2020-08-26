@@ -8,8 +8,9 @@ import lombok.Data;
  * @Date 2020/8/26 12:00 上午
  */
 @Data
-public class User {
-    private String accountId;
+public class Person {
+    private int id;
     private String name;
-    private String token;
+    private String alias;
+    private String tags;
 }

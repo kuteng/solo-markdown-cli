@@ -1,14 +1,19 @@
 package com.peter.solo.markdown.input;
 
+import com.peter.solo.markdown.entity.Person;
+import com.peter.solo.markdown.mapper.PersonMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.time.DateFormatUtils;
 import org.apache.commons.lang.time.DateUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.*;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -17,6 +22,9 @@ import java.util.Map;
 @Slf4j
 @Component
 public class FileUpdate {
+    @Autowired
+    private PersonMapper personMapper;
+
     public void update(String id, File file) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), "utf-8"));
         StringBuilder metaBuilder = new StringBuilder();
@@ -43,7 +51,7 @@ public class FileUpdate {
                         metaBuilder.append("\n");
                     }
                     else {
-                        contentBuilder.append(lineContent);
+                        contentBuilder.append(optPersonName(lineContent));
                         contentBuilder.append("\n");
                     }
                 }
@@ -100,17 +108,24 @@ public class FileUpdate {
         }
     }
 
+    /**
+     * 处理每行中的人名。
+     * todo by yandong: 当前算法可能有些耗时。
+     * @param lineContent
+     * @return
+     */
+    private String optPersonName(String lineContent) {
+        List<Person> persons = personMapper.findAll();
+
+        for(Person p: persons) {
+            lineContent = lineContent.replace(p.getName(), p.getAlias());
+        }
+
+        return lineContent;
+    }
+
     public static void main(String[] args) {
-        File file = new File("/Users/yandong/Blogs/solo/note1.md");
-        FileUpdate update = new FileUpdate();
-        try {
-            update.update("23453534534", file);
-        }
-        catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
+        String conent = "闫冬没有发现这个问题，但是房斌斌发现了";
+        System.out.println(new FileUpdate().optPersonName(conent));
     }
 }
