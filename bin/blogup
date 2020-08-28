@@ -1,0 +1,3 @@
+#!/bin/sh
+# 启动一次文件检查
+curl http://localhost:8800/blog/input && echo

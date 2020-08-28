@@ -22,9 +22,6 @@ import java.util.Map;
 @Slf4j
 @Component
 public class FileUpdate {
-    @Autowired
-    private PersonMapper personMapper;
-
     public void update(String id, File file) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), "utf-8"));
         StringBuilder metaBuilder = new StringBuilder();
@@ -51,7 +48,7 @@ public class FileUpdate {
                         metaBuilder.append("\n");
                     }
                     else {
-                        contentBuilder.append(optPersonName(lineContent));
+                        contentBuilder.append(lineContent);
                         contentBuilder.append("\n");
                     }
                 }
@@ -108,24 +105,4 @@ public class FileUpdate {
         }
     }
 
-    /**
-     * 处理每行中的人名。
-     * todo by yandong: 当前算法可能有些耗时。
-     * @param lineContent
-     * @return
-     */
-    private String optPersonName(String lineContent) {
-        List<Person> persons = personMapper.findAll();
-
-        for(Person p: persons) {
-            lineContent = lineContent.replace(p.getName(), p.getAlias());
-        }
-
-        return lineContent;
-    }
-
-    public static void main(String[] args) {
-        String conent = "闫冬没有发现这个问题，但是房斌斌发现了";
-        System.out.println(new FileUpdate().optPersonName(conent));
-    }
 }

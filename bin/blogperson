@@ -1,0 +1,8 @@
+#!/bin/sh
+# 操作人名映射
+if [ "list" = "$1" ];
+then
+    curl http://localhost:8800/person/list?format=str && echo
+elif [ "add" = "$1" ]; then
+    curl "http://localhost:8800/person/add" -G --data-urlencode "name=$2" --data-urlencode "alias=$3" && echo
+fi

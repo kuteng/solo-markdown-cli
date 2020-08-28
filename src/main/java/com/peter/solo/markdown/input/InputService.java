@@ -1,8 +1,12 @@
 package com.peter.solo.markdown.input;
 
 import com.alibaba.fastjson.JSONObject;
+import com.peter.solo.markdown.entity.Person;
+import com.peter.solo.markdown.manager.FileOptManager;
+import com.peter.solo.markdown.mapper.PersonMapper;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.FileUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -13,6 +17,7 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -30,7 +35,8 @@ import java.util.List;
 public class InputService {
     @Value("${solo.input.url}")
     private String inputUrl;
-
+    @Autowired
+    private FileOptManager fileOptManager;
 
     public JSONObject updateFile(File file) throws IOException {
         if(null == file || !file.exists()) {
@@ -38,6 +44,7 @@ public class InputService {
             return null;
         }
 
+        file = fileOptManager.optFile(file);
         CloseableHttpClient httpclient = HttpClients.createDefault();
         HttpPost httpPost = new HttpPost(inputUrl);
         // 使用InputStreamEntity更加通用，来演示从任意源输出数据的能力
@@ -91,17 +98,6 @@ public class InputService {
         }
         finally {
             response1.close();
-        }
-    }
-
-    public static void main(String[] args) {
-        InputService inputService = new InputService();
-        inputService.setInputUrl("http://localhost:8080/plugin/markdown/input");
-        File file = new File("/Users/yandong/Blogs/solo/note1.md");
-        try {
-            inputService.updateFile(file);
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 }

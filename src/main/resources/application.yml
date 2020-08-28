@@ -19,6 +19,8 @@ logging:
     com:
       peter:
         solo: debug
+        markdown:
+          mapper: info
 
 solo:
   debug:
@@ -31,6 +33,7 @@ solo:
   blog:
     # 监控的目录
     root: /Users/yandong/Blogs/solo
+    temp: /Users/yandong/.var/tmp/blog
     refresh:
       # 刷新时间30分钟
       interval: 1800000
