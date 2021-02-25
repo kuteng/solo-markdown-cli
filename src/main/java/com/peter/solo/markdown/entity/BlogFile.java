@@ -4,11 +4,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang.time.DateFormatUtils;
 import org.springframework.util.StringUtils;
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -82,7 +84,7 @@ public class BlogFile {
         // 解析文件头。
         String meta = metaBuilder.toString();
         Yaml yaml = new Yaml();
-        Map<String, String> obj = (Map) yaml.load(meta);
+        Map obj = (Map) yaml.load(meta);
 
         if(null == obj) {
             log.info("文件（{}）：解析yaml信息失败。yaml原信息如下：\n{}", file.getName(), meta);
@@ -90,19 +92,39 @@ public class BlogFile {
         }
 
         if(obj.containsKey("id") && !StringUtils.isEmpty(obj.get("id"))) {
-            blogMetaInfo.setId(obj.get("id"));
+            if(obj.get("id") instanceof Number) {
+                blogMetaInfo.setId(String.valueOf(obj.get("id")));
+            }
+            else if(obj.get("id") instanceof  String) {
+                blogMetaInfo.setId((String) obj.get("id"));
+            }
+            else {
+                throw new RuntimeException("元信息中的ID信息格式不合法：" + obj.get("id").getClass().getSimpleName());
+            }
         }
 
         if(obj.containsKey("title") && !StringUtils.isEmpty(obj.get("title"))) {
-            blogMetaInfo.setTitle(obj.get("title"));
+            blogMetaInfo.setTitle((String) obj.get("title"));
+        }
+
+        if(obj.containsKey("description") && !StringUtils.isEmpty(obj.get("description"))) {
+            blogMetaInfo.setDescription((String) obj.get("description"));
         }
 
         if(obj.containsKey("date") && !StringUtils.isEmpty(obj.get("date"))) {
-            blogMetaInfo.setDate(obj.get("date"));
+            if(obj.get("date") instanceof Date) {
+                blogMetaInfo.setDate(DateFormatUtils.format((Date) obj.get("date"), "yyyy-MM-dd HH:mm:ss"));
+            }
+            else if(obj.get("date") instanceof  String) {
+                blogMetaInfo.setDate((String) obj.get("date"));
+            }
+            else {
+                throw new RuntimeException("元信息中的ID信息格式不合法：" + obj.get("date").getClass().getSimpleName());
+            }
         }
 
         if(obj.containsKey("tags") && !StringUtils.isEmpty(obj.get("tags"))) {
-            String[] tags = obj.get("tags").split(",");
+            String[] tags = ((String) obj.get("tags")).split(",");
             List<String> tagList = new ArrayList<>();
 
             for(String tag: tags) {
@@ -113,17 +135,17 @@ public class BlogFile {
         }
 
         if(obj.containsKey("pwd") && !StringUtils.isEmpty(obj.get("pwd"))) {
-            blogMetaInfo.setPassword(obj.get("pwd"));
+            blogMetaInfo.setPassword((String) obj.get("pwd"));
         }
         else if(obj.containsKey("password") && !StringUtils.isEmpty(obj.get("password"))) {
-            blogMetaInfo.setPassword(obj.get("password"));
+            blogMetaInfo.setPassword((String) obj.get("password"));
         }
 
-        if(obj.containsKey("Blog") && !StringUtils.isEmpty(obj.get("blog"))) {
-            blogMetaInfo.setBlog(Boolean.parseBoolean(obj.get("Blog")));
+        if(obj.containsKey("Blog") && null != obj.get("Blog")) {
+            blogMetaInfo.setBlog((Boolean) obj.get("Blog"));
         }
-        else if(obj.containsKey("blog") && !StringUtils.isEmpty(obj.get("blog"))) {
-            blogMetaInfo.setBlog(Boolean.parseBoolean(obj.get("blog")));
+        else if(obj.containsKey("blog") && null != obj.get("blog")) {
+            blogMetaInfo.setBlog((Boolean) obj.get("blog"));
         }
 
         this.metaInfo = blogMetaInfo;

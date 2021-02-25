@@ -115,6 +115,8 @@ public class MarkdownAlterationListener implements FileAlterationListener {
             return;
         }
 
+        log.debug("返回结果是：{}", ret.toJSONString());
+
         if(0 != ret.getInteger("code")) {
             log.error("文件上传失败：" + ret.getString("msg"));
             return;

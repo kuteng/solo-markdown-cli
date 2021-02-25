@@ -39,6 +39,7 @@ public class FileUpdate {
         if(StringUtils.isEmpty(metaInfo.getId()) || !id.equals(metaInfo.getId())) {
             if(!id.equals(metaInfo.getId())) {
                 log.warn("文章的ID变了，old: " + metaInfo.getId() + ", new: " + id);
+                metaInfo.setId(id);
             }
 
             log.info("开始更新文章ID: " + id + ", path: " + file.getCanonicalPath());
@@ -63,8 +64,17 @@ public class FileUpdate {
     public String printMeta(BlogMetaInfo metaInfo) {
         StringBuffer meta = new StringBuffer();
 
-        meta.append("id: ").append(metaInfo.getId()).append("\n");
+        if(!StringUtils.isEmpty(metaInfo.getId())) {
+            if(StringUtils.isNumeric(metaInfo.getId())) {
+                meta.append("id: ").append("'").append(metaInfo.getId()).append("'").append("\n");
+            }
+            else {
+                meta.append("id: ").append(metaInfo.getId()).append("\n");
+            }
+        }
+
         meta.append("title: ").append(metaInfo.getTitle()).append("\n");
+        meta.append("description: ").append(metaInfo.getDescription()).append("\n");
         meta.append("date: ").append(metaInfo.getDate()).append("\n");
 
         if(metaInfo.getTags() != null && metaInfo.getTags().size() > 0) {
