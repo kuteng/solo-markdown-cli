@@ -1,6 +1,7 @@
 package com.peter.solo.markdown.monitor;
 
 import com.alibaba.fastjson.JSONObject;
+import com.peter.solo.markdown.entity.BlogFile;
 import com.peter.solo.markdown.input.FileUpdate;
 import com.peter.solo.markdown.input.InputService;
 import lombok.extern.slf4j.Slf4j;
@@ -100,7 +101,14 @@ public class MarkdownAlterationListener implements FileAlterationListener {
     }
 
     private void upfile(File file) throws IOException {
-        JSONObject ret = inputService.updateFile(file);
+        BlogFile blogFile = new BlogFile();
+
+        if(null == blogFile.getMetaInfo() || !blogFile.getMetaInfo().isBlog()) {
+            log.info("文件({})不是博客文章，不进行上传。", file.getCanonicalPath());
+            return;
+        }
+
+        JSONObject ret = inputService.updateFile(blogFile);
 
         if(null == ret) {
             log.error("文件上传失败，返回结果为空。File: " + file.getCanonicalPath());
@@ -115,6 +123,6 @@ public class MarkdownAlterationListener implements FileAlterationListener {
         JSONObject retData = ret.getJSONObject("data");
         String id = null == retData ? null : retData.getString("id");
 
-        fileUpdate.update(id, file);
+        fileUpdate.update(id, blogFile);
     }
 }

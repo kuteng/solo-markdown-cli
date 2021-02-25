@@ -1,6 +1,7 @@
 package com.peter.solo.markdown.input;
 
 import com.alibaba.fastjson.JSONObject;
+import com.peter.solo.markdown.entity.BlogFile;
 import com.peter.solo.markdown.entity.Person;
 import com.peter.solo.markdown.manager.FileOptManager;
 import com.peter.solo.markdown.mapper.PersonMapper;
@@ -38,7 +39,9 @@ public class InputService {
     @Autowired
     private FileOptManager fileOptManager;
 
-    public JSONObject updateFile(File file) throws IOException {
+    public JSONObject updateFile(BlogFile blogFile) throws IOException {
+        File file = blogFile.getFile();
+
         if(null == file || !file.exists()) {
             log.warn(String.format("文件不存在：", null == file ? "null" : file.getPath()));
             return null;
@@ -69,7 +72,7 @@ public class InputService {
             return JSONObject.parseObject(content);
         }
         catch (Exception e) {
-            e.printStackTrace();
+            log.error(e.getMessage(), e);
             return null;
         }
         finally {
@@ -94,7 +97,7 @@ public class InputService {
             String content = EntityUtils.toString(entity1, "utf-8");
         }
         catch (Exception e) {
-            e.printStackTrace();
+            log.error(e.getMessage(), e);
         }
         finally {
             response1.close();

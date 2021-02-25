@@ -32,8 +32,8 @@ solo:
     url: http://blog.peteryan.top:8080/plugin/markdown/input
   blog:
     # 监控的目录
-    root: /Users/yandong/Blogs/solo
-    temp: /Users/yandong/.var/tmp/blog
+    root: /Users/mac/Codes/pgits/soloblog
+    temp: /Users/mac/.var/tmp/blog
     refresh:
       # 刷新时间30分钟
       interval: 1800000
@@ -46,7 +46,7 @@ spring:
     initialization-mode: never
     schema: classpath:db/schema-derby.sql
     data: classpath:db/data-derby.sql
-    url: jdbc:derby:/Users/yandong/.var/derby/testdb;create=true;
+    url: jdbc:derby:/Users/mac/.var/derby/testdb;create=true;
     driverClassName: org.apache.derby.jdbc.EmbeddedDriver
     # driver-class-name: org.apache.derby.jdbc.EmbeddedDriver
     username: sa
