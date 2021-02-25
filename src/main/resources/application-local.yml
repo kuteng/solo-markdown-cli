@@ -1,0 +1,18 @@
+server:
+  port: 8800
+
+solo:
+  blog:
+    # 监控的目录
+    root: /Users/mac/Codes/pgits/soloblog
+    temp: /Users/mac/.var/tmp/blog
+
+
+spring:
+  datasource:
+    # 此为开关，是否屏蔽建表语句。always, embedded, never
+    # 根据schema.sql建表(DDL scripts)，根据data.sql插入数据(DML scripts)。
+    initialization-mode: never
+    url: jdbc:derby:/Users/mac/.var/derby/testdb;create=true;
+    username: sa
+    password: password
