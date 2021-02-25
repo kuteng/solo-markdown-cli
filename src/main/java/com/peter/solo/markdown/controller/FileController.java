@@ -1,6 +1,7 @@
 package com.peter.solo.markdown.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.peter.solo.markdown.entity.BlogFile;
 import com.peter.solo.markdown.entity.Result;
 import com.peter.solo.markdown.input.InputService;
 import com.peter.solo.markdown.monitor.MarkdownAlterationObserver;
@@ -86,7 +87,7 @@ public class FileController {
             }
         }
         else {
-            inputService.updateFile(file);
+            inputService.updateFile(new BlogFile(file));
         }
     }
 }
