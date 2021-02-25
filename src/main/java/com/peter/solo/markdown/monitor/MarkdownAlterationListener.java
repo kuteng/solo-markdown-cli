@@ -101,7 +101,7 @@ public class MarkdownAlterationListener implements FileAlterationListener {
     }
 
     private void upfile(File file) throws IOException {
-        BlogFile blogFile = new BlogFile();
+        BlogFile blogFile = new BlogFile(file);
 
         if(null == blogFile.getMetaInfo() || !blogFile.getMetaInfo().isBlog()) {
             log.info("文件({})不是博客文章，不进行上传。", file.getCanonicalPath());

@@ -14,8 +14,6 @@ import java.util.Map;
 
 @Data
 @Slf4j
-@NoArgsConstructor
-@AllArgsConstructor
 public class BlogFile {
     private File file;
     private BlogMetaInfo metaInfo;
@@ -117,12 +115,14 @@ public class BlogFile {
         if(obj.containsKey("pwd") && !StringUtils.isEmpty(obj.get("pwd"))) {
             blogMetaInfo.setPassword(obj.get("pwd"));
         }
-
-        if(obj.containsKey("password") && !StringUtils.isEmpty(obj.get("password"))) {
+        else if(obj.containsKey("password") && !StringUtils.isEmpty(obj.get("password"))) {
             blogMetaInfo.setPassword(obj.get("password"));
         }
 
-        if(obj.containsKey("blog") && !StringUtils.isEmpty(obj.get("blog"))) {
+        if(obj.containsKey("Blog") && !StringUtils.isEmpty(obj.get("blog"))) {
+            blogMetaInfo.setBlog(Boolean.parseBoolean(obj.get("Blog")));
+        }
+        else if(obj.containsKey("blog") && !StringUtils.isEmpty(obj.get("blog"))) {
             blogMetaInfo.setBlog(Boolean.parseBoolean(obj.get("blog")));
         }
 
